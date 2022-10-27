@@ -126,7 +126,6 @@ body {
 }
 
 #list-selector-heading {
-  position: absolute;
   left: 0%;
   top: 0%;
   width: 100%;
@@ -144,14 +143,13 @@ body {
 }
 
 #list-selector-list {
-  position: absolute;
   left: 0%;
   top: 10%;
   width: 100%;
   height: 90%;
   display: flex;
   flex-direction: column;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .list-card,
