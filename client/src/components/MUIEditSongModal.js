@@ -48,7 +48,7 @@ export default function MUIEditSongModal() {
   }
 
   return (
-    <Modal open={store.listMarkedForDeletion !== null}>
+    <Modal open={store.currentSong !== null}>
       <Box sx={style}>
         <div
           id='edit-song-modal'
