@@ -1,11 +1,11 @@
 import { useContext } from 'react';
-import GlobalStoreContext from '../store';
+import AuthContext from '../auth';
 import * as React from 'react';
+import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
 
 const style = {
   position: 'absolute',
@@ -19,41 +19,37 @@ const style = {
   p: 4,
 };
 
-export default function MUIDeleteModal() {
-  const { store } = useContext(GlobalStoreContext);
-  let name = '';
-  if (store.listMarkedForDeletion) {
-    name = store.listMarkedForDeletion.name;
-  }
-  function handleDeleteList(event) {
-    store.deleteMarkedList();
-  }
+export default function AuthErrorModal() {
+  const { auth } = useContext(AuthContext);
   function handleCloseModal(event) {
-    store.hideModals();
+    auth.setErrorMessage('');
   }
 
   return (
-    <Modal open={store.listMarkedForDeletion !== null}>
+    <Modal open={auth.errorMessage !== ''}>
       <Box sx={style}>
         <Grid container spacing={1}>
           <Grid item xs={12}>
-            <Typography component='h1' variant='h4'>
-              Delete the playlist, {name}?
-            </Typography>
+            <Box
+              component='span'
+              m={1}
+              display='flex'
+              justifyContent='center'
+              alignItems='center'
+            >
+              <Alert severity='error'>{auth.errorMessage}</Alert>
+            </Box>
           </Grid>
           <Grid item xs={12}>
             <Box
               component='span'
               m={1}
               display='flex'
-              justifyContent='space-between'
+              justifyContent='center'
               alignItems='center'
             >
-              <Button variant='contained' onClick={handleDeleteList}>
-                Confirm
-              </Button>{' '}
               <Button variant='contained' onClick={handleCloseModal}>
-                Cancel
+                Close Alert
               </Button>
             </Box>
           </Grid>

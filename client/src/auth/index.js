@@ -11,12 +11,14 @@ export const AuthActionType = {
   LOGIN_USER: 'LOGIN_USER',
   LOGOUT_USER: 'LOGOUT_USER',
   REGISTER_USER: 'REGISTER_USER',
+  AUTH_ERROR: 'AUTH_ERROR',
 };
 
 function AuthContextProvider(props) {
   const [auth, setAuth] = useState({
     user: null,
     loggedIn: false,
+    errorMessage: '',
   });
   const history = useHistory();
 
@@ -51,6 +53,11 @@ function AuthContextProvider(props) {
           loggedIn: true,
         });
       }
+      case AuthActionType.AUTH_ERROR: {
+        return setAuth({
+          errorMessage: payload,
+        });
+      }
       default:
         return auth;
     }
@@ -76,34 +83,42 @@ function AuthContextProvider(props) {
     password,
     passwordVerify
   ) {
-    const response = await api.registerUser(
-      firstName,
-      lastName,
-      email,
-      password,
-      passwordVerify
-    );
-    if (response.status === 200) {
-      authReducer({
-        type: AuthActionType.REGISTER_USER,
-        payload: {
-          user: response.data.user,
-        },
-      });
-      // history.push('/login');
+    try {
+      const response = await api.registerUser(
+        firstName,
+        lastName,
+        email,
+        password,
+        passwordVerify
+      );
+      if (response.status === 200) {
+        authReducer({
+          type: AuthActionType.REGISTER_USER,
+          payload: {
+            user: response.data.user,
+          },
+        });
+        // history.push('/login');
+      }
+    } catch (err) {
+      auth.setErrorMessage(err.response.data.errorMessage);
     }
   };
 
   auth.loginUser = async function (email, password) {
-    const response = await api.loginUser(email, password);
-    if (response.status === 200) {
-      authReducer({
-        type: AuthActionType.LOGIN_USER,
-        payload: {
-          user: response.data.user,
-        },
-      });
-      history.push('/');
+    try {
+      const response = await api.loginUser(email, password);
+      if (response.status === 200) {
+        authReducer({
+          type: AuthActionType.LOGIN_USER,
+          payload: {
+            user: response.data.user,
+          },
+        });
+        history.push('/');
+      }
+    } catch (err) {
+      auth.setErrorMessage(err.response.data.errorMessage);
     }
   };
 
@@ -126,6 +141,13 @@ function AuthContextProvider(props) {
     }
     console.log('user initials: ' + initials);
     return initials;
+  };
+
+  auth.setErrorMessage = (errorMessage) => {
+    authReducer({
+      type: AuthActionType.AUTH_ERROR,
+      payload: errorMessage,
+    });
   };
 
   return (
