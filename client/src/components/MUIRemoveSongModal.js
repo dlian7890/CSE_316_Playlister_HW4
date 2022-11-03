@@ -38,7 +38,7 @@ export default function MUIRemoveSongModal() {
 
   return (
     <Modal open={store.currentSong !== null}>
-      <Box sx={style}>
+      {/* <Box sx={style}>
         <div
           id='remove-song-modal'
           className={modalClass}
@@ -70,7 +70,7 @@ export default function MUIRemoveSongModal() {
             </div>
           </div>
         </div>
-      </Box>
+      </Box> */}
     </Modal>
   );
 }

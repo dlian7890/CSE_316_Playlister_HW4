@@ -262,11 +262,11 @@ input {
 /* THIS STYLE SHEET MANAGES STYLE FOR OUR MODAL, i.e. DIALOG BOX */
 
 .modal {
-  position: fixed;
+  /* position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
+  bottom: 0; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -274,13 +274,13 @@ input {
   background: var(--black);
   color: var(--swatch-text);
   cursor: pointer;
-  visibility: hidden;
-  opacity: 0;
+  /* visibility: hidden;
+  opacity: 0; */
   transition: all 0.35s ease-in;
   font-family: var(--font-primary);
 }
 
-.modal.is-visible {
+/* .modal.is-visible {
   visibility: visible;
   opacity: 1;
 }
@@ -337,7 +337,7 @@ input {
 
 #confirm-cancel-container {
   text-align: center;
-}
+} */
 
 /* ANIMATIONS
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
