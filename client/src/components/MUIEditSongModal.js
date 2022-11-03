@@ -2,14 +2,18 @@ import { useContext, useState } from 'react';
 import GlobalStoreContext from '../store';
 import * as React from 'react';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 
 const style = {
   position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  width: 500,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -50,7 +54,60 @@ export default function MUIEditSongModal() {
   return (
     <Modal open={store.currentSong !== null}>
       <Box sx={style}>
-        <div
+        <Grid container spacing={1}>
+          <Grid item xs={12}>
+            <Typography component='h1' variant='h4'>
+              Edit Song
+            </Typography>
+          </Grid>
+          <Typography component='h1' variant='h6'>
+            Title
+          </Typography>
+          <TextField
+            id='outlined-basic'
+            variant='outlined'
+            fullWidth
+            defaultValue={title}
+            onChange={handleUpdateTitle}
+          />
+          <Typography component='h1' variant='h5'>
+            Artist
+          </Typography>
+          <TextField
+            id='outlined-basic'
+            variant='outlined'
+            fullWidth
+            defaultValue={artist}
+            onChange={handleUpdateArtist}
+          />
+          <Typography component='h1' variant='h5'>
+            YouTubeId
+          </Typography>
+          <TextField
+            id='outlined-basic'
+            variant='outlined'
+            fullWidth
+            defaultValue={youTubeId}
+            onChange={handleUpdateYouTubeId}
+          />
+          <Grid item xs={12}>
+            <Box
+              component='span'
+              m={1}
+              display='flex'
+              justifyContent='space-between'
+              alignItems='center'
+            >
+              <Button variant='contained' onClick={handleConfirmEditSong}>
+                Confirm
+              </Button>
+              <Button variant='contained' onClick={handleCancelEditSong}>
+                Cancel
+              </Button>
+            </Box>
+          </Grid>
+        </Grid>
+        {/* <div
           id='edit-song-modal'
           className='modal is-visible'
           data-animation='slideInOutLeft'
@@ -108,7 +165,7 @@ export default function MUIEditSongModal() {
               />
             </div>
           </div>
-        </div>
+        </div> */}
       </Box>
     </Modal>
   );
