@@ -33,6 +33,10 @@ export default function AppBanner() {
     auth.logoutUser();
   };
 
+  const handleGoToHome = () => {
+    store.clearAllTransactions();
+  };
+
   const menuId = 'primary-search-account-menu';
   const loggedOutMenu = (
     <Menu
@@ -99,6 +103,7 @@ export default function AppBanner() {
       <AppBar position='static'>
         <Toolbar>
           <Typography
+            onClick={handleGoToHome}
             variant='h4'
             noWrap
             component='div'

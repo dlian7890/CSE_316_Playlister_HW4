@@ -503,6 +503,9 @@ function GlobalStoreContextProvider(props) {
   store.redo = function () {
     tps.doTransaction();
   };
+  store.clearAllTransactions = function () {
+    tps.clearAllTransactions();
+  };
   store.canAddNewSong = function () {
     return store.currentList !== null;
   };
